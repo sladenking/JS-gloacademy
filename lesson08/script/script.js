@@ -48,11 +48,6 @@ let appData = {
     appData.addExpenses = addExpenses
       .toLowerCase()
       .split(', ');
-    // let some = "";
-    // for (let output of appData.addExpenses) {
-    //   some += output.charAt(0).toUpperCase() + output.substr(1) + ", ";
-    // }
-    // console.log(some.substr(0, some.length-2));
     for (let i = 0; i < appData.addExpenses.length; i++) {
       appData.addExpenses[i] = appData.addExpenses[i].charAt(0).toUpperCase() + appData.addExpenses[i].substr(1);
      }
