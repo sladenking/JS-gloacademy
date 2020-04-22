@@ -86,10 +86,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	//PopUp
 	const togglePopUp = () => {
 		const popup = document.querySelector('.popup'),
-			popupContent = popup.querySelector('.popup-content'),
-			popUpBtn = document.querySelectorAll('.popup-btn');
+			popupContent = popup.querySelector('.popup-content');
 
-		let flyInterval, count = -40, animateStart = false;
+		let flyInterval, count = -40, animateStart = true;
 
 		const startAnimate = function() {
 			if (document.documentElement.clientWidth < 768) {
@@ -108,20 +107,18 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		};
 
-		popUpBtn.forEach(elem => elem.addEventListener('click', () => {
-			if (animateStart) {
-				animateStart = false;
-				cancelAnimationFrame(flyInterval);
-			} else {
-				animateStart = true;
-				flyInterval = requestAnimationFrame(startAnimate);
-			}
-		}));
-
-
-
-		popup.addEventListener('click', event => {
+		document.body.addEventListener('click', event => {
 			let target = event.target;
+
+			if (target.classList.contains('popup-btn')) {
+				if (!animateStart) {
+					cancelAnimationFrame(flyInterval);
+					animateStart = false;
+				} else {
+					flyInterval = requestAnimationFrame(startAnimate);
+					animateStart = true;
+				}
+			}
 
 			if (target.classList.contains('popup-close')) {
 				popup.style.display = 'none';
@@ -132,7 +129,6 @@ window.addEventListener('DOMContentLoaded', () => {
 					popup.style.display = 'none';
 				}
 			}
-
 		});
 	};
 
