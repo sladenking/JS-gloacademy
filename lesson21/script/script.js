@@ -169,8 +169,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	//Slider
 	const slider = () => {
 		const slide = document.querySelectorAll('.portfolio-item'),
-			dot = document.querySelectorAll('.dot'),
+			dots = document.querySelector('.portfolio-dots'),
 			slider = document.querySelector('.portfolio-content');
+
+		for (let i = 0; i < slide.length; i++) {
+			dots.insertAdjacentHTML('beforeend',
+				`<li class="dot ${i === 0 ? 'dot-active' : ''}"></li>`);
+		}
+
+		const dot = document.querySelectorAll('.dot');
 
 		let currentSlide = 0,
 			interval;
