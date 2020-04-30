@@ -352,4 +352,85 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 
 	calc(100);
+
+	//Send-ajax-form
+	const sendForm = () => {
+		const errorMessage = 'Что-то пошло не так...',
+			loadMessage = 'Загрузка...',
+			successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+		const forms = document.querySelectorAll('form');
+
+		const statusMessage = document.createElement('div');
+		statusMessage.classList.add('status-message');
+		statusMessage.style.cssText = 'font-size: 2rem; color: #fff';
+
+		const postData = (body, outputData, errorData) => {
+			const request = new XMLHttpRequest();
+
+			request.addEventListener('readystatechange', () => {
+				if (request.readyState !== 4) {
+					return;
+				}
+				if (request.status === 200) {
+					outputData();
+				} else {
+					errorData(request.status);
+				}
+			});
+
+			request.open('POST', './server.php');
+			request.setRequestHeader('Content-Type', 'application/json');
+
+
+			request.send(JSON.stringify(body));
+		};
+
+		const removeStatusMessage = () => {
+			const status = document.querySelector('.status-message');
+			if (!status) return;
+			setTimeout(() => {
+				status.remove();
+			}, 5000);
+		};
+
+		forms.forEach(form => {
+			form.addEventListener('input', event => {
+				const target = event.target;
+				if (target.name === 'user_phone') {
+					target.value = target.value.replace(/[^+\d]/g, '');
+				}
+
+				if (target.name === 'user_name' || target.name === 'user_message') {
+					target.value = target.value.replace(/[^а-я ]/gi, '');
+				}
+			});
+
+			form.addEventListener('submit', event => {
+				event.preventDefault();
+				form.insertAdjacentElement('beforeend', statusMessage);
+				statusMessage.textContent = loadMessage;
+				const formData = new FormData(form);
+				const body = {};
+				formData.forEach((val, key) => {
+					body[key] = val;
+				});
+
+				postData(body,
+					() => {
+						removeStatusMessage();
+						statusMessage.textContent = successMessage;
+						form.reset();
+					},
+					error => {
+						removeStatusMessage();
+						statusMessage.textContent = errorMessage;
+						console.error(error);
+					});
+
+			});
+		});
+	};
+
+	sendForm();
 });
