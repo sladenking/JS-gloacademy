@@ -415,12 +415,12 @@ window.addEventListener('DOMContentLoaded', () => {
 			}, 5000);
 		};
 
-		const postData = formData => fetch('./server.php', {
+		const postData = body => fetch('./server.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: formData,
+			body: JSON.stringify(body),
 			credentials: 'include'
 		});
 
@@ -445,6 +445,10 @@ window.addEventListener('DOMContentLoaded', () => {
 				const loaderHtml = document.querySelector('.preloader');
 
 				const formData = new FormData(form);
+				const body = {};
+				for (const val of formData.entries()) {
+					body[val[0]] = val[1];
+				}
 
 				const outputData = response => {
 					if (response.status !== 200) {
