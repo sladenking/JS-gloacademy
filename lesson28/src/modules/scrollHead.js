@@ -1,7 +1,6 @@
 const scrollHead = () => {
 	const scroll = elem => {
 		event.preventDefault();
-		console.log(elem);
 		const link = elem.href.split('#')[1];
 		document.querySelector('#' + link).scrollIntoView({
 			behavior: 'smooth',
