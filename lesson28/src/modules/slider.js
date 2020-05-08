@@ -54,9 +54,9 @@ const slider = () => {
 		prevSlide(slide, currentSlide, 'portfolio-item-active');
 		prevSlide(dot, currentSlide, 'dot-active');
 
-		if (target.matches('#arrow-right')) {
+		if (target.matches('.next')) {
 			currentSlide++;
-		} else if (target.matches('#arrow-left')) {
+		} else if (target.matches('.prev')) {
 			currentSlide--;
 		} else if (target.matches('.dot')) {
 			dot.forEach((elem, i) => {

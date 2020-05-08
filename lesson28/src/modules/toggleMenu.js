@@ -2,9 +2,8 @@ const toggleMenu = () => {
 
 	const scroll = elem => {
 		event.preventDefault();
-		console.log(elem);
 		const link = elem.href.split('#')[1];
-		document.querySelector('#' + link).scrollIntoView({
+		document.getElementById(link).scrollIntoView({
 			behavior: 'smooth',
 			block: 'start',
 			inline: 'center'
@@ -18,7 +17,7 @@ const toggleMenu = () => {
 
 		if (target.matches('.menu, #menu__img, #menu__name')) {
 			menu.classList.add('active-menu');
-		} else if (target.tagName === 'A' && target.className !== 'close-btn') {
+		} else if (target.tagName === 'A' && target.className !== 'close-btn' && !target.id) {
 			scroll(target);
 			menu.classList.remove('active-menu');
 		} else if (target.classList.contains('close-btn') || target !== menu && target.tagName !== 'LI') {

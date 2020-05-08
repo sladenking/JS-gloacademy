@@ -1,8 +1,9 @@
 const scrollHead = () => {
+
 	const scroll = elem => {
 		event.preventDefault();
 		const link = elem.href.split('#')[1];
-		document.querySelector('#' + link).scrollIntoView({
+		document.getElementById(link).scrollIntoView({
 			behavior: 'smooth',
 			block: 'start',
 			inline: 'center'
