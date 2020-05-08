@@ -29,7 +29,7 @@ const calc = (price = 100) => {
 			total = 0;
 		}
 
-		totalValue.textContent = total;
+		totalValue.textContent = parseInt(total);
 	};
 
 

@@ -111,7 +111,7 @@ const sendForm = () => {
 				loaderHtml.remove();
 			};
 
-			postData(formData)
+			postData(body)
 				.then(outputData)
 				.catch(error);
 
